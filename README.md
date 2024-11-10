@@ -1,110 +1,62 @@
 # GST BOT
 
-## Overview
+## Project Overview
 
-**GST BOT** is an AI-powered chatbot that provides guidance on the Goods and Services Tax (GST) registration process. The bot is designed to simplify the experience for individuals and small businesses by answering questions based on the context extracted from a webpage about GST registration. Built using Langchain, FAISS, and Streamlit, the bot uses natural language processing and embeddings to understand and respond to user queries.
+The **GST BOT** is designed to provide information and answer questions related to the Goods and Services Tax (GST) registration process. The bot utilizes an AI model to retrieve context-specific answers from a web page and uses a pre-trained model for generating relevant and concise responses.
 
----
+## Instructions
 
-## Features
+### Select a Project
+- Chosen Project: **GST BOT**
 
-- **Context-based answers:** The bot uses the relevant content from a webpage to answer user questions clearly and concisely.
-- **Integration with Langchain:** Langchain is used for building the prompt and processing the response.
-- **FAISS-based vector store:** A FAISS-based vector store stores and retrieves the most relevant context for answering questions.
-- **Web scraping:** Content is fetched from a webpage using the `WebBaseLoader` from Langchain.
-- **Streamlit Interface:** A simple interface is created using Streamlit, where users can input their questions about GST registration.
+### Provide a Detailed Plan
 
----
+#### Approach:
+- **Step 1:** Load content from a specific webpage related to GST registration using a web scraper (WebBaseLoader).
+- **Step 2:** Split the loaded content into smaller chunks for efficient processing.
+- **Step 3:** Filter out any irrelevant or complex metadata from the document chunks.
+- **Step 4:** Store the processed data in a vector store (FAISS) to enable fast similarity search.
+- **Step 5:** Accept user input questions and retrieve relevant information from the vector store.
+- **Step 6:** Use the GPT model to generate an accurate and context-specific response to the user's query.
+- **Step 7:** Display the answer to the user in a user-friendly interface (Streamlit).
 
-## Technologies Used
+#### Technology Choices:
+- **Programming Language:** Python
+  - **Reason:** Python is a versatile and powerful language for AI, machine learning, and web scraping tasks.
+- **Libraries & Tools:**
+  - **Langchain:** Used to handle document loading, text splitting, and context extraction.
+  - **FAISS:** For vector-based similarity search, ensuring fast and efficient retrieval of relevant content.
+  - **OllamaLLM:** To process and generate responses based on user input.
+  - **Streamlit:** Provides an easy-to-use framework to deploy and interact with the chatbot through a web interface.
+  - **WebBaseLoader:** To scrape content from a web page.
 
-- **Langchain:** For prompt building, parsing, and chaining components.
-- **FAISS:** For efficient similarity search and indexing.
-- **OllamaLLM:** Language model used for generating responses.
-- **Streamlit:** For creating a simple, interactive web interface.
-- **WebBaseLoader:** To scrape content from an external webpage.
-- **FAKE embeddings:** Fake embeddings are used for illustration and can be replaced with real embeddings.
-- **NumPy:** For handling numerical data related to the embeddings and FAISS operations.
+#### Solution Design:
+- **Data Source:** The project scrapes content from a public webpage about GST registration. This data is preprocessed and stored in a vector store (FAISS).
+- **Model Type:** A retrieval-based model, using vector search for context matching, and GPT model for generating responses.
+- **Workflow Structure:** 
+  - Web scraping → Text processing → Vector embedding → User query → Retrieval & Response generation.
 
----
+#### Challenges and Solutions:
+- **Challenge 1:** Handling ambiguous or unclear user queries.
+  - **Solution:** Implement fallback responses when the chatbot cannot provide an answer, such as "I don't know" or suggesting related topics.
+  
+- **Challenge 2:** Ensuring the relevance of the retrieved data.
+  - **Solution:** Use a robust similarity search with FAISS to ensure that the most relevant context is selected for answering user queries.
+  
+- **Challenge 3:** Ensuring real-time responsiveness of the bot.
+  - **Solution:** Optimize the retrieval process by fine-tuning vector embeddings and using efficient indexing with FAISS.
 
-## Setup
+#### Assumptions:
+- The user will ask questions based on the information available on the specified GST registration page.
+- The bot will only be able to answer based on the information retrieved from the content it has processed.
 
-### Prerequisites
+#### Code/Workflow/POC:
+- **Code Sample:** Refer to the main script for complete implementation.
+- **Workflow Diagram:**
+  - **Step 1:** Scrape content → **Step 2:** Split content → **Step 3:** Store in FAISS → **Step 4:** Retrieve relevant context → **Step 5:** Generate response using GPT.
 
-Before you begin, ensure you have the following installed:
+### Past Experience and Relevant Knowledge
+- Previous experience with **Python**, **Streamlit**, **FAISS**, and **Langchain** libraries has been useful in creating the GST BOT.
+- Previous projects in machine learning have provided insight into how to manage text data and how to fine-tune models for question-answering tasks.
 
-- Python 3.x
-- pip (Python package manager)
 
-### Installation Steps
-
-1. **Clone the repository:**
-
-    ```bash
-    git clone <repository-url>
-    cd <project-directory>
-    ```
-
-2. **Install required dependencies:**
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. **Run the application:**
-
-    ```bash
-    streamlit run app.py
-    ```
-
-This will open the application in your web browser, where you can interact with the GST BOT.
-
----
-
-## How It Works
-
-1. **Loading the Web Content:** The bot first loads content from the [GST Registration](https://www.bankbazaar.com/tax/gst-registration.html) webpage using Langchain's `WebBaseLoader`.
-   
-2. **Document Chunking and Preprocessing:** The loaded document is split into smaller chunks of text using the `RecursiveCharacterTextSplitter` for better processing and response accuracy.
-
-3. **Indexing with FAISS:** The content chunks are then indexed using FAISS. Each chunk is associated with an embedding vector created using the `FakeEmbeddings` class, though this can be replaced with real embeddings.
-
-4. **Query Processing:** When a user asks a question, the bot performs a similarity search to find the most relevant context from the indexed document. This context is combined with the user's query and passed to the `OllamaLLM` model.
-
-5. **Generating the Response:** The model generates a response based on the question and context, which is then parsed and displayed to the user.
-
----
-
-## Usage
-
-1. Open the application in a browser after running it through Streamlit.
-2. Enter a question related to **GST Registration** in the input box.
-3. The bot will return a concise answer based on the context extracted from the webpage.
-
----
-
-## Example Interaction
-
-- **User Input:** "What documents are needed for GST registration?"
-- **Bot Response:** "To register for GST, you need documents like proof of identity, proof of address, and bank account details. Ensure that all documents are valid and up to date."
-
----
-
-## Contributing
-
-Feel free to fork the repository, submit issues, and contribute to the development of this project. If you have suggestions or improvements, open a pull request, and I will review it.
-
----
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-## Author
-
-**Safiqur Rahman**  
-[LinkedIn Profile](https://www.linkedin.com/in/safiqur-rahman)  
-[GitHub Profile](https://github.com/safiqur-rahman)
